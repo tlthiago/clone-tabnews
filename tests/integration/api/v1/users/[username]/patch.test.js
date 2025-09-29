@@ -119,6 +119,7 @@ describe("PATCH /api/v1/users/[username]", () => {
         password: responseBody.password,
         created_at: responseBody.created_at,
         updated_at: responseBody.updated_at,
+        features: responseBody.features,
       });
       expect(uuidVersion(responseBody.id)).toBe(4);
       expect(Date.parse(responseBody.created_at)).not.toBeNaN();
@@ -154,6 +155,7 @@ describe("PATCH /api/v1/users/[username]", () => {
         password: responseBody.password,
         created_at: responseBody.created_at,
         updated_at: responseBody.updated_at,
+        features: responseBody.features,
       });
       expect(uuidVersion(responseBody.id)).toBe(4);
       expect(Date.parse(responseBody.created_at)).not.toBeNaN();
@@ -189,6 +191,7 @@ describe("PATCH /api/v1/users/[username]", () => {
         password: responseBody.password,
         created_at: responseBody.created_at,
         updated_at: responseBody.updated_at,
+        features: responseBody.features,
       });
       expect(uuidVersion(responseBody.id)).toBe(4);
       expect(Date.parse(responseBody.created_at)).not.toBeNaN();
