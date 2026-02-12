@@ -31,8 +31,8 @@ describe("GET /api/v1/migrations", () => {
 
       const response = await fetch("http://localhost:3000/api/v1/migrations", {
         headers: {
-          Cookie: `session_id=${sessionObject.token}`
-        }
+          Cookie: `session_id=${sessionObject.token}`,
+        },
       });
 
       expect(response.status).toBe(403);
@@ -45,7 +45,7 @@ describe("GET /api/v1/migrations", () => {
         action: 'Verifique se o seu usuário possui a feature "read:migration"',
         status_code: 403,
       });
-    })
+    });
   });
 
   describe("Privileged user", () => {
@@ -57,8 +57,8 @@ describe("GET /api/v1/migrations", () => {
 
       const response = await fetch("http://localhost:3000/api/v1/migrations", {
         headers: {
-          Cookie: `session_id=${sessionObject.token}`
-        }
+          Cookie: `session_id=${sessionObject.token}`,
+        },
       });
 
       expect(response.status).toBe(200);
@@ -66,6 +66,6 @@ describe("GET /api/v1/migrations", () => {
       const responseBody = await response.json();
 
       expect(Array.isArray(responseBody)).toBe(true);
-    })
+    });
   });
 });

@@ -1,6 +1,5 @@
 import { InternalServerError } from "infra/errors";
 import authorization from "models/authorization.js";
-import { password } from "pg/lib/defaults";
 
 describe("models/authorization.js", () => {
   describe(".can()", () => {
@@ -10,22 +9,22 @@ describe("models/authorization.js", () => {
 
     test("without `user.features`", () => {
       const createdUser = {
-        username: "UserWithoutFeatures"
-      }
+        username: "UserWithoutFeatures",
+      };
       expect(() => authorization.can(createdUser)).toThrow(InternalServerError);
     });
 
     test("with unknown `feature`", () => {
       const createdUser = {
-        features: []
-      }
+        features: [],
+      };
       expect(() => authorization.can(createdUser)).toThrow(InternalServerError);
     });
 
     test("with valid `user` and known `feature`", () => {
       const createdUser = {
-        features: ["create:user"]
-      }
+        features: ["create:user"],
+      };
       expect(authorization.can(createdUser, "create:user")).toBe(true);
     });
   });
@@ -37,29 +36,35 @@ describe("models/authorization.js", () => {
 
     test("without `user.features`", () => {
       const createdUser = {
-        username: "UserWithoutFeatures"
-      }
-      expect(() => authorization.filterOutput(createdUser)).toThrow(InternalServerError);
+        username: "UserWithoutFeatures",
+      };
+      expect(() => authorization.filterOutput(createdUser)).toThrow(
+        InternalServerError,
+      );
     });
 
     test("with unknown `feature`", () => {
       const createdUser = {
-        features: []
-      }
-      expect(() => authorization.filterOutput(createdUser)).toThrow(InternalServerError);
+        features: [],
+      };
+      expect(() => authorization.filterOutput(createdUser)).toThrow(
+        InternalServerError,
+      );
     });
 
     test("with valid `user`, known `feature` but no `resource`", () => {
       const createdUser = {
-        features: ["read:user"]
-      }
-      expect(() => authorization.filterOutput(createdUser, "read:user")).toThrow(InternalServerError);
+        features: ["read:user"],
+      };
+      expect(() =>
+        authorization.filterOutput(createdUser, "read:user"),
+      ).toThrow(InternalServerError);
     });
 
     test("with valid `user`, known `feature` and `resource`", () => {
       const createdUser = {
-        features: ["read:user"]
-      }
+        features: ["read:user"],
+      };
 
       const resource = {
         id: 1,
@@ -69,9 +74,13 @@ describe("models/authorization.js", () => {
         updated_at: "2026-01-01T00:00:00.000Z",
         email: "resource@resource.com",
         password: "resource",
-      }
+      };
 
-      const result = authorization.filterOutput(createdUser, "read:user", resource);
+      const result = authorization.filterOutput(
+        createdUser,
+        "read:user",
+        resource,
+      );
 
       expect(result).toEqual({
         id: 1,

@@ -21,6 +21,10 @@ async function getHandler(request, response) {
     "Cache-Control",
     "no-store, no-cache, max-age=0, must-revalidade",
   );
-  const secureOutputValues = authorization.filterOutput(userTryingToGet, "read:user:self", userFound);
+  const secureOutputValues = authorization.filterOutput(
+    userTryingToGet,
+    "read:user:self",
+    userFound,
+  );
   return response.status(200).json(secureOutputValues);
 }

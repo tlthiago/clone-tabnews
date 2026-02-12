@@ -22,7 +22,7 @@ const availableFeatures = [
   // STATUS
   "read:status",
   "read:status:all",
-]
+];
 
 function can(user, feature, resource) {
   validateUser(user);
@@ -53,7 +53,7 @@ function filterOutput(user, feature, resource) {
       features: resource.features,
       created_at: resource.created_at,
       updated_at: resource.updated_at,
-    }
+    };
   }
 
   if (feature === "read:user:self") {
@@ -65,7 +65,7 @@ function filterOutput(user, feature, resource) {
         features: resource.features,
         created_at: resource.created_at,
         updated_at: resource.updated_at,
-      }
+      };
     }
   }
 
@@ -78,7 +78,7 @@ function filterOutput(user, feature, resource) {
         created_at: resource.created_at,
         updated_at: resource.updated_at,
         expires_at: resource.expires_at,
-      }
+      };
     }
   }
 
@@ -90,7 +90,7 @@ function filterOutput(user, feature, resource) {
       updated_at: resource.updated_at,
       expires_at: resource.expires_at,
       used_at: resource.used_at,
-    }
+    };
   }
 
   if (feature === "read:migration") {
@@ -112,10 +112,11 @@ function filterOutput(user, feature, resource) {
           opened_connections: resource.dependencies.database.opened_connections,
         },
       },
-    }
+    };
 
     if (can(user, "read:status:all")) {
-      output.dependencies.database.version = resource.dependencies.database.version;
+      output.dependencies.database.version =
+        resource.dependencies.database.version;
     }
 
     return output;
@@ -133,7 +134,8 @@ function validateUser(user) {
 function validateFeature(feature) {
   if (!feature || !availableFeatures.includes(feature)) {
     throw new InternalServerError({
-      cause: "É necessário fornecer uma `feature` conhecida no model `authorization`.",
+      cause:
+        "É necessário fornecer uma `feature` conhecida no model `authorization`.",
     });
   }
 }
@@ -141,7 +143,8 @@ function validateFeature(feature) {
 function validateResource(resource) {
   if (!resource) {
     throw new InternalServerError({
-      cause: "É necessário fornecer um `resource` em `authorization.filterOutput()`.",
+      cause:
+        "É necessário fornecer um `resource` em `authorization.filterOutput()`.",
     });
   }
 }
